@@ -37,3 +37,8 @@ plt.savefig(f'img/nonsymmetrical.png', dpi = 300)
 plt.show()
 plt.close(plotter_nonsymmetrical.fig)
 
+plotter_square = PlotGraph()
+plotter_square.plotting_base_graphs(square_8_2_ghz, square_10_ghz, square_11_8ghz)
+plt.savefig(f'img/square.png', dpi = 300)
+plt.close(plotter_square.fig)
+
