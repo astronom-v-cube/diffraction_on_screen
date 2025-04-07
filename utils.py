@@ -9,9 +9,10 @@ class PlotGraph():
 
     def __init__(self):
         self.fig, self.ax = plt.subplots(num="График", figsize=(12, 8))
-        self.x = np.linspace(-100, 100, 41)
-        self.cut_x = np.linspace(-60, 60, 25)
-        self.cut_x_DOP = np.linspace(-25, 25, 26)
+        self.full_x = np.linspace(-100, 100, 41)
+        self.cut_x_60 = np.linspace(-60, 60, 25)
+        self.cut_x_25 = np.linspace(-25, 25, 26)
+        self.cut_x_50 = np.linspace(-50, 50, 51)
 
     def cubic_spline_interpolation(x, y, x_for_spline):
         cs = CubicSpline(x, y)
@@ -25,9 +26,13 @@ class PlotGraph():
     def plotting_base_graphs(self, array82ghz: np.ndarray, array10ghz: np.ndarray, array118ghz: np.ndarray, x_arr: str = 'normal', dbm2linear: Boolean = False):
 
         if x_arr == 'normal':
-            x = self.x
-        elif x_arr == 'cut':
-            x = self.cut_x
+            x = self.full_x
+        elif x_arr == 'cut_25':
+            x = self.cut_x_25
+        elif x_arr == 'cut_50':
+            x = self.cut_x_50
+        elif x_arr == 'cut_60':
+            x = self.cut_x_60
 
         if dbm2linear:
             array82ghz = PlotGraph.dbm2linear(array82ghz)
@@ -40,9 +45,9 @@ class PlotGraph():
         array10ghz = PlotGraph.cubic_spline_interpolation(x, array10ghz, x_for_spline)
         array118ghz = PlotGraph.cubic_spline_interpolation(x, array118ghz, x_for_spline)
 
-        self.ax.plot(x_for_spline, array82ghz, label='8.2 GHz', color='b', linewidth = 5)
-        self.ax.plot(x_for_spline, array10ghz, label='10 GHz', color='r', linewidth = 5)
-        self.ax.plot(x_for_spline, array118ghz, label='11.8 GHz', color='g', linewidth = 5)
+        self.ax.plot(x_for_spline, array82ghz, label='8.2 GHz', color='b', linewidth = 3)
+        self.ax.plot(x_for_spline, array10ghz, label='10 GHz', color='r', linewidth = 3)
+        self.ax.plot(x_for_spline, array118ghz, label='11.8 GHz', color='g', linewidth = 3)
 
         self.ax.grid(True)
         self.ax.legend()
